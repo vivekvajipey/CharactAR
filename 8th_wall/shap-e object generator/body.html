@@ -1,0 +1,117 @@
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+
+<div id="rpmContainer" class="container" style="z-index: 999; display: block">
+    <iframe
+      id="iframe"
+      class="iframe-content"
+      src="https://8thwall.readyplayer.me/avatar"
+      allow="camera *; microphone *"></iframe>
+  </div>
+  
+  <div id="overlay" style="z-index: 2">
+    <img id="recenterBtn" src="assets/icons/reset.svg" />
+    <h3 id="instructions">DRAG TO MOVE</h3>
+  </div>
+  
+  <div id="flipBg" class="absolute-fill"></div>
+  <img id="swap-cam-btn" src="./assets/icons/camera-flip.svg" />
+  
+  <!-- Add the recenter-on-load & swap-cam components to the scene so it has an effect -->
+  <a-scene
+    responsive-immersive
+    swap-camera
+    landing-page
+    xrextras-gesture-detector
+    xrextras-loading
+    xrextras-runtime-error
+    assembly-ai
+    renderer="colorManagement:true">
+    <a-assets>
+      <a-asset-item id="animated-m-glb" src="./assets/models/animated-m.glb"></a-asset-item>
+      <!-- <a-asset-item id="talking" src="./assets/models/Talking.glb"></a-asset-item> -->
+      <a-asset-item id="animated-f-glb" src="./assets/models/animated-f.glb"></a-asset-item>
+      <img id="background" src="./assets/background/gradient-purple.png" />
+      <img id="tile" src="./assets/background/tile.jpg" />
+    </a-assets>
+  
+    <a-camera id="camera" position="0 4 4" look-controls="enabled: false">
+      <a-plane
+        id="faceEffectsBackground"
+        visible="false"
+        src="#background"
+        material="transparent: true"
+        position="0 0.1 -2"
+        width="6"
+        height="3"></a-plane>
+    </a-camera>
+  
+    <a-entity id="light" position="1 4.3 2.5" shadow> </a-entity>
+  
+    <a-light type="ambient" intensity="0.8"></a-light>
+  
+    <a-entity id="animated-f" gltf-model="#animated-f-glb"></a-entity>
+    <a-entity id="animated-m" gltf-model="#animated-m-glb"></a-entity>
+  
+    <a-box
+      id="ground"
+      scale="1000 2 1000"
+      position="0 -1 0"
+      material="shader: shadow; transparent: true; opacity: 0.45"
+      shadow>
+    </a-box>
+  
+    <a-entity id="inworld-entity" inworld></a-entity>
+  
+    <div
+      xrextras-hud
+      style="
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        width: 90%;
+        max-width: 300px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 12px;
+        font-family: sans-serif;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      ">
+      <textarea
+        type="text"
+        id="question"
+        placeholder="Your Question"
+        style="
+          width: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+          margin-bottom: 14px;
+          font-size: 16px;
+          outline: none;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          border-radius: 8px;
+        "></textarea>
+      <button
+        id="ask"
+        style="
+          padding: 10px;
+          width: 100%;
+          box-sizing: border-box;
+          font-size: 16px;
+          background-color: #1ef4d7;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          outline: none;
+          transition: all 0.3s;
+        ">
+        Ask
+      </button>
+      <button id="record" class="mic">Start Recording</button>
+    </div>
+  </a-scene>
+  
