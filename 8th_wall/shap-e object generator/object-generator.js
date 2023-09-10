@@ -108,7 +108,7 @@ const objectGenerator = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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',
+        'Authorization': '',
         'HTTP-Referer': 'https://8thwall.com/yanninour',
         'X-Title': '8th Wall',
       },
